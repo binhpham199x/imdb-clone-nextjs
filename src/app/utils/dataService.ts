@@ -1,5 +1,5 @@
 import { ApiResponse } from "../models/apiData";
-import { homeParamToPath } from "./pathConverter";
+import { fetchTypeToPath } from "./pathConverter";
 
 const baseUrl = "https://moviesminidatabase.p.rapidapi.com/movie/";
 // const API_KEY = process.env.API_KEY;
@@ -13,27 +13,18 @@ const options = {
 	},
 };
 
-export const fetchTrendingData = async () => {
-	const pathTrending = homeParamToPath("fetchTrending");
-	const resTrending = await fetch(baseUrl + pathTrending, options);
+type FetchType = "fetchTrending" | "fetchTopRated";
 
-	if (!resTrending.ok) {
-		throw new Error("Failed to fetch data trending");
+export const fetchData = async (fetchType: FetchType, page: number = 1) => {
+	const path = fetchTypeToPath(fetchType);
+	const pageOption = "?page=" + page;
+	const res = await fetch(baseUrl + path + pageOption, options);
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch data " + fetchType);
 	}
 
-	const dataTrending: ApiResponse = await resTrending.json();
+	const data: ApiResponse = await res.json();
 
-	return dataTrending.results;
-};
-
-export const fetchTopRatedData = async () => {
-	const pathTopRated = homeParamToPath("fetchTopRated");
-	const resTopRated = await fetch(baseUrl + pathTopRated, options);
-
-	if (!resTopRated.ok) {
-		throw new Error("Failed to fetch data top rated");
-	}
-	const dataTopRated: ApiResponse = await resTopRated.json();
-
-	return dataTopRated.results;
+	return data.results;
 };
