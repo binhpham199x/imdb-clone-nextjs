@@ -2,8 +2,8 @@ import { ApiResponse } from "../models/apiData";
 import { fetchTypeToPath } from "./pathConverter";
 
 const baseUrl = "https://moviesminidatabase.p.rapidapi.com/movie/";
-// const API_KEY = process.env.API_KEY;
-const API_KEY = "";
+const API_KEY = process.env.API_KEY;
+// const API_KEY = "";
 
 const options = {
 	method: "GET",
@@ -17,7 +17,7 @@ type FetchType = "fetchTrending" | "fetchTopRated";
 
 export const fetchData = async (fetchType: FetchType, page: number = 1) => {
 	const path = fetchTypeToPath(fetchType);
-	const pageOption = "?page=" + page;
+	const pageOption = `?page=${page}`;
 	const res = await fetch(baseUrl + path + pageOption, options);
 
 	if (!res.ok) {
@@ -26,5 +26,17 @@ export const fetchData = async (fetchType: FetchType, page: number = 1) => {
 
 	const data: ApiResponse = await res.json();
 
+	return data.results;
+};
+
+export const fetchMovieDetailsData = async (id: string) => {
+	const path = `id/${id}/`;
+	const res = await fetch(baseUrl + path, options);
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch movie details data");
+	}
+
+	const data = await res.json();
 	return data.results;
 };
