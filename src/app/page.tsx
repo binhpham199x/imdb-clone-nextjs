@@ -2,11 +2,19 @@ import { MovieResult } from "./models/apiData";
 import Results from "@/components/Results";
 import { fetchData, fetchMovieDetailsData } from "./utils/dataService";
 
-export default async function Home() {
+interface Props {
+	params: {};
+	searchParams: { genre: string };
+}
+
+export default async function Home(p: Props) {
+
+    const genre = p.searchParams.genre;
+
 	let trendingData = await fetchData("fetchTrending");
 	let topRatedData = await fetchData("fetchTopRated");
 
-    const LIMIT = 5;
+	const LIMIT = 5;
 
 	trendingData = trendingData.slice(0, LIMIT);
 	topRatedData = topRatedData.slice(0, LIMIT);
@@ -23,6 +31,7 @@ export default async function Home() {
 		)
 	);
 
+    const data = genre == "fetchTopRated" ? topRatedData : trendingData;
 
-	return <Results trendingData={trendingData} topRatedData={topRatedData} />;
+	return <Results results={data} />;
 }

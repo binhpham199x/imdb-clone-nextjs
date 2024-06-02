@@ -19,8 +19,8 @@ const Card = ({ result }: Props) => {
 				<Image
 					alt={result.title}
 					src={result.banner || result.image_url}
-					width={400}
-					height={300}
+					width={300}
+					height={500}
 					className="sm:rounded-t-lg group-hover:opacity-75 transition-opacity duration-300 justify-self-center"
 				/>
 
