@@ -8,16 +8,12 @@ interface Props {
 }
 
 export default async function Home(p: Props) {
+	const genre = p.searchParams.genre;
 
-    const genre = p.searchParams.genre;
+	const RESULTS_LIMIT = 10;
 
-	let trendingData = await fetchData("fetchTrending");
-	let topRatedData = await fetchData("fetchTopRated");
-
-	const LIMIT = 3;
-
-	trendingData = trendingData.slice(0, LIMIT);
-	topRatedData = topRatedData.slice(0, LIMIT);
+	const trendingData = await fetchData("fetchTrending", RESULTS_LIMIT);
+	const topRatedData = await fetchData("fetchTopRated", RESULTS_LIMIT);
 
 	const trendingDataDetails = await Promise.all(
 		trendingData.map(
@@ -31,7 +27,8 @@ export default async function Home(p: Props) {
 		)
 	);
 
-    const data = genre == "fetchTopRated" ? trendingDataDetails : topRatedDataDetails;
+	const data =
+		genre == "fetchTopRated" ? trendingDataDetails : topRatedDataDetails;
 
 	return <Results results={data} />;
 }

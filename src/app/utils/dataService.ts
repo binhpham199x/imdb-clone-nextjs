@@ -18,6 +18,7 @@ type FetchType = "fetchTrending" | "fetchTopRated";
 
 export const fetchData = async (
 	fetchType: FetchType,
+	limit: number = 10,
 	page: number = 1
 ): Promise<MovieResult[]> => {
 	const path = fetchTypeToPath(fetchType);
@@ -30,6 +31,11 @@ export const fetchData = async (
 
 	const data: ApiResponse = await res.json();
 
+	if (data.results.length < limit) {
+		return data.results;
+	}
+
+	data.results = data.results.slice(0, limit);
 	return data.results;
 };
 

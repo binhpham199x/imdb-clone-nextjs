@@ -11,8 +11,9 @@ interface Props {
 
 export default async function SearchPage(p: Props) {
 	const searchTerm = p.params.searchTerm;
+	const RESULTS_LIMIT = 10;
 
-	const movies = await fetchMovieByName(searchTerm, 3);
+	const movies = await fetchMovieByName(searchTerm, RESULTS_LIMIT);
 
 	const results = await Promise.all(
 		movies.map(async (movie) => await fetchMovieDetailsData(movie.imdb_id))
