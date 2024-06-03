@@ -1,8 +1,8 @@
-import { MovieResult } from "../app/models/apiData";
+import { MovieDetails } from "../app/models/apiData";
 import Card from "./Card";
 
 interface Props {
-	results: MovieResult[];
+	results: MovieDetails[];
 }
 
 const Results = ({ results }: Props) => {

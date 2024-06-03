@@ -1,4 +1,4 @@
-export interface MovieResult {
+export interface MovieDetails {
 	imdb_id: string;
 	title: string;
 	year: number;
@@ -15,6 +15,11 @@ export interface MovieResult {
 	type: string;
 }
 
+export interface MovieResult {
+	imdb_id: string;
+	title: string;
+}
+
 export interface ApiResponse {
-	results: MovieResult[];
+	results: MovieDetails[] | MovieResult[];
 }

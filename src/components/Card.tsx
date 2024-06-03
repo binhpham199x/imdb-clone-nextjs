@@ -1,4 +1,4 @@
-import { MovieResult } from "@/app/models/apiData";
+import { MovieDetails } from "@/app/models/apiData";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -6,7 +6,7 @@ import { FaRegStar } from "react-icons/fa";
 import { FiThumbsUp } from "react-icons/fi";
 
 interface Props {
-	result: MovieResult;
+	result: MovieDetails;
 }
 
 const Card = ({ result }: Props) => {

@@ -1,4 +1,4 @@
-import { MovieResult } from "./models/apiData";
+import { MovieDetails } from "./models/apiData";
 import Results from "@/components/Results";
 import { fetchData, fetchMovieDetailsData } from "./utils/dataService";
 
@@ -14,24 +14,24 @@ export default async function Home(p: Props) {
 	let trendingData = await fetchData("fetchTrending");
 	let topRatedData = await fetchData("fetchTopRated");
 
-	const LIMIT = 5;
+	const LIMIT = 3;
 
 	trendingData = trendingData.slice(0, LIMIT);
 	topRatedData = topRatedData.slice(0, LIMIT);
 
-	trendingData = await Promise.all(
+	const trendingDataDetails = await Promise.all(
 		trendingData.map(
 			async (movie) => await fetchMovieDetailsData(movie.imdb_id)
 		)
 	);
 
-	topRatedData = await Promise.all(
+	const topRatedDataDetails = await Promise.all(
 		topRatedData.map(
 			async (movie) => await fetchMovieDetailsData(movie.imdb_id)
 		)
 	);
 
-    const data = genre == "fetchTopRated" ? topRatedData : trendingData;
+    const data = genre == "fetchTopRated" ? trendingDataDetails : topRatedDataDetails;
 
 	return <Results results={data} />;
 }

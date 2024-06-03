@@ -1,4 +1,4 @@
-import { MovieResult } from "@/app/models/apiData";
+import { MovieDetails } from "@/app/models/apiData";
 import { fetchMovieDetailsData } from "@/app/utils/dataService";
 import Image from "next/image";
 import React from "react";
@@ -12,7 +12,7 @@ interface Props {
 export default async function MoviePage(p: Props) {
 	const movieId = p.params.id;
 
-	const movie: MovieResult = await fetchMovieDetailsData(movieId);
+	const movie: MovieDetails = await fetchMovieDetailsData(movieId);
 
 	return (
 		<div className="w-full">
