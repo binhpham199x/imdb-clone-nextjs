@@ -18,10 +18,9 @@ export default async function SearchPage(p: Props) {
 		movies.map(async (movie) => await fetchMovieDetailsData(movie.imdb_id))
 	);
 
-	console.log(results);
 	const notFound = <h1 className="text-center pt-6">No results found</h1>;
 
-    const content = <Results results={results}/>
+	const content = <Results results={results} />;
 
 	return (
 		<div>

@@ -62,8 +62,6 @@ export const fetchMovieByName = async (
 	if (data.results.length < limit) {
 		return data.results;
 	}
-	console.log("res: " + data.results);
-	console.log(data);
 
 	data.results = data.results.slice(0, limit);
 	return data.results;
